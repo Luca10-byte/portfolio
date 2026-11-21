@@ -1,0 +1,179 @@
+/* Luca Ghirardelli — portfolio. Palette e tipografia: vedi le variabili qui sotto. */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("assets/fonts/bricolage.woff2") format("woff2");
+  font-weight: 200 800;
+  font-stretch: 75% 100%;
+  font-display: swap;
+}
+
+:root {
+  --paper: #F1F3F6;
+  --white: #FFFFFF;
+  --ink: #0F1830;
+  --ink-2: #1B2748;
+  --muted: #4B556B;
+  --rule: #CBD2DE;
+  --redline: #C4123A;
+  --on-ink: #C9D0DF;
+  --font: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --gutter: clamp(16px, 4vw, 32px);
+  --radius: 6px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 16px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.0625rem/1.62 var(--font);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+img, video, svg { display: block; max-width: 100%; }
+[hidden] { display: none !important; } /* vince su .btn: senza JS il bottone "Copia" non deve comparire */
+:focus-visible { outline: 3px solid var(--redline); outline-offset: 3px; }
+main:focus-visible { outline: none; }
+
+.wrap { width: 100%; max-width: 1120px; margin-inline: auto; padding-inline: var(--gutter); }
+
+.skip {
+  position: absolute; left: var(--gutter); top: -80px; z-index: 10;
+  padding: 0.6rem 1rem; background: var(--ink); color: var(--paper);
+  font-weight: 600; text-decoration: none;
+}
+.skip:focus { top: 12px; }
+
+/* Titoli: stessa famiglia, versione stretta e pesante */
+h1, h2, h3 { font-weight: 800; font-stretch: 75%; letter-spacing: -0.02em; text-wrap: balance; }
+h2 { font-size: clamp(2rem, 4.4vw, 3.25rem); line-height: 1; }
+h3 { font-stretch: 80%; font-weight: 750; letter-spacing: -0.01em; }
+
+/* Bottoni: angoli vivi, nessuna ombra */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0.7rem 1.25rem;
+  border: 2px solid var(--ink); background: transparent; color: var(--ink);
+  font: inherit; font-weight: 650; text-align: center; text-decoration: none; cursor: pointer;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-primary:hover { background: var(--redline); border-color: var(--redline); color: var(--white); }
+.btn-sm { min-height: 44px; padding: 0.4rem 0.9rem; font-size: 0.9375rem; }
+
+/* Intestazione */
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; }
+.name { font-size: 1.375rem; font-weight: 800; font-stretch: 75%; letter-spacing: -0.01em; text-decoration: none; }
+.bar nav { display: flex; align-items: center; gap: clamp(16px, 3vw, 32px); }
+.nav-link { display: inline-flex; align-items: center; min-height: 44px; font-weight: 500; text-decoration: none; }
+.nav-link:hover { text-decoration: underline; }
+
+/* Titolo iniziale: la "tavola" con le misure rosse */
+.hero { padding-block: clamp(24px, 5vw, 56px) clamp(16px, 3vw, 32px); }
+.board { --pad: clamp(20px, 5vw, 64px); position: relative; padding: var(--pad); background: var(--white); border: 1px solid var(--rule); }
+/* Niente text-wrap: balance qui: la misura "larghezza" deve restare vicina al testo vero */
+.board h1 { font-size: clamp(2.75rem, 7.4vw, 5.75rem); line-height: 0.98; letter-spacing: -0.025em; text-wrap: wrap; }
+
+/* Le misure sono create da main.js con i valori reali letti dal CSS */
+.rl { position: absolute; font-size: 0.75rem; line-height: 1; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--redline); pointer-events: none; }
+.rl[data-rl="pad"], .rl[data-rl="width"] { padding-bottom: 5px; text-align: center; border-bottom: 1px solid var(--redline); }
+.rl[data-rl="pad"]::before, .rl[data-rl="pad"]::after,
+.rl[data-rl="width"]::before, .rl[data-rl="width"]::after { content: ""; position: absolute; bottom: -5px; width: 1px; height: 9px; background: var(--redline); }
+.rl[data-rl="pad"]::before, .rl[data-rl="width"]::before { left: 0; }
+.rl[data-rl="pad"]::after, .rl[data-rl="width"]::after { right: 0; }
+.rl[data-rl="pad"] { left: 0; top: calc(var(--pad) + 1.2rem); width: var(--pad); }
+.rl[data-rl="width"] { left: var(--pad); right: var(--pad); bottom: calc(var(--pad) / 2 - 8px); }
+.rl[data-rl="size"] { top: 0; left: var(--pad); transform: translateY(-50%); padding: 4px 8px; background: var(--redline); color: var(--white); }
+.board[data-redline="off"] .rl { display: none; }
+@keyframes rl-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: no-preference) { .rl { animation: rl-in 0.6s 0.3s both; } }
+
+.redline-toggle {
+  min-height: 44px; padding: 12px 0; border: 0; background: none; color: var(--muted);
+  font: inherit; font-size: 0.875rem; font-weight: 600; cursor: pointer;
+  text-decoration: underline; text-underline-offset: 0.2em;
+}
+.redline-toggle::before { content: ""; display: inline-block; width: 0.75rem; height: 0.75rem; margin-right: 0.5rem; border: 1.5px solid var(--redline); vertical-align: -1px; }
+.redline-toggle[aria-pressed="true"]::before { background: var(--redline); }
+
+.lede { max-width: 60ch; margin-top: 24px; font-size: 1.25rem; line-height: 1.55; }
+.avail { margin-top: 16px; color: var(--muted); font-weight: 500; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 32px; margin-top: clamp(40px, 6vw, 64px); padding-top: 24px; border-top: 2px solid var(--ink); }
+.facts dt { font-size: 1.375rem; font-weight: 750; font-stretch: 80%; line-height: 1.15; }
+.facts dd { max-width: 30ch; margin-top: 4px; color: var(--muted); }
+
+/* Sezioni */
+.sec { padding-block: clamp(56px, 9vw, 104px); }
+.sec-note { max-width: 56ch; margin-top: 16px; color: var(--muted); }
+
+/* Progetti: righe separate da filetti, niente card */
+.projects { margin-top: clamp(32px, 5vw, 56px); }
+.project { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 4vw, 56px); padding-block: clamp(32px, 5vw, 56px); border-top: 1px solid var(--rule); }
+.media { position: relative; display: grid; place-items: center; aspect-ratio: 16 / 9; background: var(--ink); border-radius: var(--radius); overflow: hidden; }
+.media video { width: 100%; height: 100%; object-fit: contain; background: var(--ink); }
+.media.portrait { aspect-ratio: auto; padding: clamp(16px, 3vw, 32px); }
+.media.portrait video { width: auto; height: min(560px, 75vh); max-width: 100%; }
+.media.app { aspect-ratio: auto; min-height: 380px; padding: 32px 16px; }
+.mark { position: absolute; top: 10px; right: 10px; z-index: 2; padding: 3px 8px; background: rgba(15, 24, 48, 0.78); color: var(--paper); font-size: 0.75rem; font-weight: 600; pointer-events: none; }
+.cap { margin-top: 12px; color: var(--muted); font-size: 0.875rem; }
+
+.project h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.1; }
+.kind { margin-top: 6px; color: var(--muted); font-weight: 500; }
+.desc { max-width: 60ch; margin-top: 16px; }
+.points { display: grid; gap: 8px; margin-top: 16px; padding-left: 1.1em; list-style: disc; }
+.points li::marker { color: var(--redline); }
+.meta { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 0.9375rem; }
+.meta dt { font-weight: 650; }
+.meta dd { color: var(--muted); }
+
+/* Telefono illustrativo di SkiMap */
+.phone { width: min(224px, 70%); padding: 16px; background: var(--ink-2); border: 2px solid var(--muted); border-radius: 28px; color: var(--paper); }
+.phone-head { display: flex; align-items: center; gap: 10px; }
+.phone-head img { width: 40px; height: 40px; border-radius: 9px; object-fit: cover; }
+.phone-title { font-size: 0.9375rem; font-weight: 750; line-height: 1.1; }
+.phone-sub { color: var(--on-ink); font-size: 0.6875rem; }
+.route { width: 100%; height: auto; margin-block: 14px 10px; }
+.phone-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.phone-stats div { padding: 8px; border: 1px solid rgba(241, 243, 246, 0.22); }
+.phone-stats strong { display: block; font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+.phone-stats span { color: var(--on-ink); font-size: 0.6875rem; }
+
+/* Metodo: qui la numerazione ha senso, sono passi in sequenza */
+.steps { counter-reset: step; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; margin-top: clamp(32px, 5vw, 56px); }
+.steps li { counter-increment: step; padding-top: 20px; border-top: 2px solid var(--ink); }
+.steps li::before { content: counter(step); display: block; margin-bottom: 12px; color: var(--redline); font-size: 3rem; font-weight: 800; font-stretch: 75%; line-height: 1; }
+.steps h3 { font-size: 1.375rem; line-height: 1.2; }
+.steps p { max-width: 36ch; margin-top: 8px; color: var(--muted); }
+
+.stack-list { margin-top: clamp(24px, 4vw, 40px); padding-top: 24px; border-top: 2px solid var(--ink); gap: 12px 32px; font-size: 1.125rem; }
+
+/* Contatti */
+.contact { border-top: 2px solid var(--ink); }
+.contact-text { max-width: 56ch; margin-top: 20px; font-size: 1.25rem; line-height: 1.55; }
+.contact .actions { margin-top: 28px; }
+.mail { overflow-wrap: anywhere; }
+.copy-status { min-height: 1.5em; margin-top: 12px; color: var(--muted); font-size: 0.9375rem; }
+
+.foot { padding-block: 28px 48px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.875rem; }
+.foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+
+@media (max-width: 860px) {
+  .project, .steps { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 700px) {
+  .rl, .redline-toggle, .nav-link { display: none; }
+  .facts { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

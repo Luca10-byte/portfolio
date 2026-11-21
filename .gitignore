@@ -1,0 +1,13 @@
+# Segreti e licenze: non devono mai finire nel repo pubblico
+.env
+.env.*
+*.license.json
+*.pem
+*.key
+*.zip
+
+# Sistema, dipendenze, note di lavoro
+.DS_Store
+node_modules/
+docs/
+.superpowers/
